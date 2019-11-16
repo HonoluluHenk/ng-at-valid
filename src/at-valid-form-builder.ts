@@ -1,6 +1,5 @@
 import {AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
 import {DEFAULT_GROUP} from 'at-valid/lib/decorators';
-import {isEmpty} from 'at-valid/lib/util/isEmpty';
 import {
     mapToValidationError,
     PROPERTY_ROOT_PATH,
