@@ -1,0 +1,96 @@
+{
+    "extends": [
+        "tslint:recommended"
+    ],
+    "rules": {
+        "arrow-parens": [
+            true,
+            "ban-single-arg-parens"
+        ],
+        "ban": [
+            true,
+            "eval",
+            {
+                "name": "fdescribe",
+                "message": "don't focus tests"
+            },
+            {
+                "name": "fit",
+                "message": "don't focus tests"
+            }
+        ],
+        "comment-format": [
+            false
+        ],
+        "indent": [
+            true,
+            "spaces",
+            4
+        ],
+        "interface-name": [
+            true,
+            "never-prefix"
+        ],
+        "max-classes-per-file": false,
+        "member-access": [
+            true,
+            "no-public"
+        ],
+        "newline-before-return": [
+            true
+        ],
+        "newline-per-chained-call": [
+            true
+        ],
+        "no-unused-variable": [
+            true,
+            "check-parameters",
+            {
+                "ignore-pattern": "^ignore"
+            }
+        ],
+        "object-literal-sort-keys": false,
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape"
+        ],
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": {
+                    "objects": "never",
+                    "arrays": "always",
+                    "functions": "never",
+                    "typeLiterals": "ignore"
+                },
+                "singleline": "never",
+                "esSpecCompliant": true
+            }
+        ],
+        "variable-name": {
+            "options": [
+                "allow-leading-underscore",
+                "ban-keywords",
+                "check-format",
+                "require-const-for-all-caps"
+            ]
+        },
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-rest-spread",
+            "check-type",
+            "check-typecast",
+            "check-type-operator",
+            "check-preblock"
+        ]
+    }
+}

@@ -1,0 +1,74 @@
+{
+    "name": "ng-at-valid",
+    "version": "1.0.0-0",
+    "description": "Integrate at-valid validation decorators into Angular reactive forms validation",
+    "homepage": "https://github.com/HonoluluHenk/ng-at-valid",
+    "bugs": {
+        "url": "https://github.com/HonoluluHenk/ng-at-valid/issues"
+    },
+    "author": "Christoph Linder <at-valid@elainemarley.homeip.net> (https://github.com/HonoluluHenk)",
+    "license": "MIT",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/HonoluluHenk/ng-at-valid.git"
+    },
+    "scripts": {
+        "lint": "npm run lint:tsc:app && npm run lint:tsc:spec",
+        "lint:fix": "npm run lint:tsc:app:fix && npm run lint:tsc:spec:fix",
+        "lint:tsc:app": "tslint -p tsconfig.app.json",
+        "lint:tsc:app:fix": "tslint -p tsconfig.app.json --fix",
+        "lint:tsc:spec": "tslint -p tsconfig.spec.json",
+        "lint:tsc:spec:fix": "tslint -p tsconfig.spec.json --fix",
+        "test:watch": "nodemon --watch src --ext ts --exec 'ts-node --project tsconfig.spec.json node_modules/jasmine/bin/jasmine --config=jasmine.json'",
+        "test": "nyc -r lcov -e .ts -x '**/*.spec.ts' ts-node --project tsconfig.spec.json node_modules/jasmine/bin/jasmine --config=jasmine.json",
+        "verify": "npm run lint && npm run test",
+        "clean": "rimraf lib coverage .nyc_output",
+        "build": "check-engine package.json && npm run clean && tsc -p tsconfig.app.json",
+        "prepublishOnly": "npm build && npm run verify"
+    },
+    "engines": {
+        "node": ">=12.13.0",
+        "npm": ">=6.12.0"
+    },
+    "files": [
+        "lib/**/*"
+    ],
+    "keywords": [
+        "object",
+        "class",
+        "validation",
+        "validate",
+        "annotations",
+        "bean",
+        "beanvalidation",
+        "angular",
+        "at-valid",
+        "ng"
+    ],
+    "devDependencies": {
+        "@angular/common": "^8.2.14",
+        "@angular/compiler": "^8.2.14",
+        "@angular/core": "^8.2.14",
+        "@angular/forms": "^8.2.14",
+        "@angular/platform-browser": "^8.2.14",
+        "@types/jasmine": "^3.4.4",
+        "check-engine": "^1.8.1",
+        "istanbul": "^0.4.5",
+        "jasmine": "^3.5.0",
+        "jasmine-spec-reporter": "^4.2.1",
+        "jasmine-ts": "^0.3.0",
+        "nodemon": "^1.19.4",
+        "nyc": "^14.1.1",
+        "rimraf": "^3.0.0",
+        "rxjs": "^6.5.3",
+        "ts-node": "^8.4.1",
+        "tslint": "^5.20.0",
+        "typescript": "^3.6.4",
+        "zone.js": "^0.10.2"
+    },
+    "peerDependencies": {
+        "@angular/forms": ">=4.0.0"
+    }
+}
