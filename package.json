@@ -70,5 +70,8 @@
     },
     "peerDependencies": {
         "@angular/forms": ">=4.0.0"
+    },
+    "dependencies": {
+        "at-valid": "^2.0.0-0"
     }
 }
