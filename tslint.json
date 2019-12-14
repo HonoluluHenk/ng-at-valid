@@ -17,7 +17,17 @@
             {
                 "name": "fit",
                 "message": "don't focus tests"
-            }
+            },
+            [
+                "describe",
+                "only",
+                "don't focus tests"
+            ],
+            [
+                "it",
+                "only",
+                "don't focus tests"
+            ]
         ],
         "comment-format": [
             false
@@ -37,9 +47,6 @@
             "no-public"
         ],
         "newline-before-return": [
-            true
-        ],
-        "newline-per-chained-call": [
             true
         ],
         "no-unused-variable": [

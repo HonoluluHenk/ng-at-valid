@@ -1,7 +1,10 @@
 {
 	"extends": "./tsconfig.json",
-	"types": [
-		"jasmine",
+    "compilerOptions": {
+        "esModuleInterop": true
+    },
+    "types": [
+		"jest",
 		"node"
 	],
 	"files": [

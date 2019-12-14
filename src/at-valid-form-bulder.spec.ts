@@ -4,6 +4,7 @@ import {DEFAULT_GROUP} from 'at-valid/lib/decorators';
 import {isEmpty} from 'at-valid/lib/util/isEmpty';
 import {Opts, ValidationContext} from 'at-valid/lib/validator/ValidationContext';
 import {AtValidFormBuilder} from './at-valid-form-builder';
+import Mock = jest.Mock;
 
 const OTHER_GROUP = 'OTHER_GROUP';
 
@@ -36,23 +37,20 @@ function locationError(value: string | null | undefined): object {
 describe('AtValidFormBuilder', () => {
     let calls: Array<{ prop: string, validator: string, value: string | null | undefined, outcome: boolean }> = [];
 
-    let aSpy: jasmine.Spy<() => boolean> = jasmine.createSpy('A');
-    let bSpy: jasmine.Spy<() => boolean> = jasmine.createSpy('B');
-    let cSpy: jasmine.Spy<() => boolean> = jasmine.createSpy('C');
+    let aSpy: Mock<boolean>;
+    let bSpy: Mock<boolean>;
+    let cSpy: Mock<boolean>;
 
     function resetCalls() {
         calls = [];
     }
 
     function resetSpies(a: boolean, b?: boolean, c?: boolean) {
-        aSpy = jasmine.createSpy('A');
-        bSpy = jasmine.createSpy('B');
-        cSpy = jasmine.createSpy('C');
         const bb = isEmpty(b) ? a : b;
         const cc = isEmpty(c) ? bb : c;
-        aSpy.and.returnValue(a);
-        bSpy.and.returnValue(bb);
-        cSpy.and.returnValue(cc);
+        aSpy = jest.fn().mockReturnValue(a);
+        bSpy = jest.fn().mockReturnValue(bb);
+        cSpy = jest.fn().mockReturnValue(cc);
     }
 
     function LoggingConstraint(
@@ -109,33 +107,36 @@ describe('AtValidFormBuilder', () => {
         fb = new AtValidFormBuilder(new FormBuilder());
     });
 
-    describe('initial state', () => {
-        let form: FormGroup;
+    [true, false].forEach(valid => {
+        describe(`initial state, valid: ${valid}`, () => {
+            let form: FormGroup;
 
-        beforeEach(() => {
-            resetSpies(true);
-            resetCalls();
-            form = fb.groupFrom(Data);
+            beforeEach(() => {
+                resetSpies(valid);
+                resetCalls();
+                form = fb.groupFrom(Data);
+            });
+
+            it(`should be called with angular default values (i.e.: null)`, () => {
+                expect(calls)
+                    .toEqual([
+                        {prop: 'name', validator: 'A', value: null, outcome: valid},
+                        // {prop: 'surname', validator: 'B', value: null, outcome: valid},
+                        {prop: 'location', validator: 'C', value: null, outcome: valid},
+                    ]);
+            });
+
+            it(`should be initially valid: ${valid}`, () => {
+                expect(form.valid)
+                    .toEqual(valid);
+            });
+
+            it(`should be initially pristine`, () => {
+                expect(form.pristine)
+                    .toBeTruthy();
+            });
         });
 
-        it('should be called with angular default values (i.e.: null)', () => {
-            expect(calls)
-                .toEqual([
-                    {prop: 'name', validator: 'A', value: null, outcome: true},
-                    // {prop: 'surname', validator: 'B', value: null, outcome: true},
-                    {prop: 'location', validator: 'C', value: null, outcome: true},
-                ]);
-        });
-
-        it('should be initially invalid', () => {
-            expect(form.valid)
-                .toBeFalsy();
-        });
-
-        it('should be initially pristine', () => {
-            expect(form.pristine)
-                .toBeTruthy();
-        });
     });
 
     [
